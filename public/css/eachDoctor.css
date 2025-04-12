@@ -1,0 +1,240 @@
+/* Global styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f8fc;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.doctor-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Doctor profile section */
+.doctor-profile {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+}
+
+.doctor-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #4caf50;
+}
+
+.doctor-details h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #555;
+}
+
+/* More info section */
+.doctor-more-info {
+    margin-top: 30px;
+}
+
+.doctor-more-info h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #34495e;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    font-size: 16px;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #2d3436;
+}
+
+.book-button {
+    text-align: center;
+    width: 50%;
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 20px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.book-button:hover {
+    background-color: #2980b9;
+}
+
+/* Map section */
+.map-section {
+    margin-top: 40px;
+}
+
+.map-section h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #34495e;
+}
+
+.map-iframe {
+    width: 100%;
+    height: 300px;
+    border: none;
+    border-radius: 12px;
+}
+
+/* Reviews section */
+.reviews-section {
+    margin-top: 40px;
+}
+
+.reviews-section h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #34495e;
+}
+
+/* Review form */
+.review-form {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #eef6fb;
+    border-radius: 10px;
+}
+
+.review-form h3 {
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.form-textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+    min-height: 80px;
+}
+
+.submit-button {
+    padding: 10px 18px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #219150;
+}
+
+/* Reviews list (3 per row layout) */
+.reviews-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.reviews-list .review-card {
+    background-color: #f9f9f9;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-author {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.review-content {
+    margin: 10px 0;
+    font-size: 15px;
+    color: #444;
+}
+
+.review-date {
+    font-size: 13px;
+    color: #888;
+}
+
+.delete-button {
+    padding: 5px 10px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.delete-button:hover {
+    background-color: #c0392b;
+}
+
+.no-reviews {
+    font-style: italic;
+    color: #999;
+}
+
+/* Responsive tweaks (optional but recommended) */
+@media screen and (max-width: 768px) {
+    .doctor-profile {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .map-iframe {
+        height: 250px;
+    }
+
+    .reviews-list {
+        grid-template-columns: 1fr;
+    }
+}

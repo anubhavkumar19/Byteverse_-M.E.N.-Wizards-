@@ -8,13 +8,15 @@
 .starability-result::before {
     content: '★★★★★';
     letter-spacing: 3px;
-    color: #ccc; /* Empty stars color */
+    color: #ccc;
+    /* Empty stars color */
 }
 
 .starability-result::after {
     content: '★★★★★';
     letter-spacing: 3px;
-    color: #ffcc00; /* Filled stars color */
+    color: #ffcc00;
+    /* Filled stars color */
     position: absolute;
     top: 0;
     left: 0;
@@ -24,8 +26,22 @@
 }
 
 /* Fill stars according to rating (1-5) */
-.starability-result[data-rating="1"]::after { width: 20%; }
-.starability-result[data-rating="2"]::after { width: 40%; }
-.starability-result[data-rating="3"]::after { width: 60%; }
-.starability-result[data-rating="4"]::after { width: 80%; }
-.starability-result[data-rating="5"]::after { width: 100%; }
+.starability-result[data-rating="1"]::after {
+    width: 20%;
+}
+
+.starability-result[data-rating="2"]::after {
+    width: 40%;
+}
+
+.starability-result[data-rating="3"]::after {
+    width: 60%;
+}
+
+.starability-result[data-rating="4"]::after {
+    width: 80%;
+}
+
+.starability-result[data-rating="5"]::after {
+    width: 100%;
+}

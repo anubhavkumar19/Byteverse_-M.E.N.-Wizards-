@@ -1,8 +1,7 @@
 // Initialize star ratings
-document.addEventListener('DOMContentLoaded', function() {
-    // This updates all star rating displays on page load
+document.addEventListener('DOMContentLoaded', function () {
     const starResults = document.querySelectorAll('.starability-result');
-    
+
     starResults.forEach(result => {
         const rating = parseInt(result.getAttribute('data-rating'));
         if (rating >= 1 && rating <= 5) {

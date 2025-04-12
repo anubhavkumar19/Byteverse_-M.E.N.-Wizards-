@@ -1,0 +1,111 @@
+/* Container layout */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+  }
+  
+  /* Search Bar */
+  .search-wrapper {
+    display: flex;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    background-color: #f0f8ff;
+    border-radius: 8px;
+    border: 1px solid #cce4ff;
+    padding: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.1);
+  }
+  
+  .search-input {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    font-size: 1rem;
+    background-color: transparent;
+  }
+  
+  .search-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .search-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .search-icon {
+    width: 20px;
+    height: 20px;
+    fill: white;
+    margin-right: 0.5rem;
+  }
+  
+  /* Doctor Card Grid */
+  .doctor {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding-top: 1rem;
+  }
+  
+  .doctor-card {
+    background: #e6f0ff;
+    border: 1px solid #b3d7ff;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .doctor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 123, 255, 0.2);
+  }
+  
+  .doctor-card a {
+    text-decoration: none;
+    color: #003366;
+  }
+  
+  .doctor-card h2 {
+    font-size: 1.3rem;
+    margin: 0;
+    color: #0056b3;
+  }
+  
+  .doctor-card h5 {
+    font-size: 1rem;
+    margin: 0.3rem 0 0 0;
+    color: #336699;
+  }
+  
+  /* Empty state message */
+  .doctor p {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #666;
+  }
+  
+  /* Flash messages (uses existing flashing.css styles) */
+  .flash-toast.success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .flash-toast.error {
+    background-color: #f8d7da;
+    color: #721c24;
+  }

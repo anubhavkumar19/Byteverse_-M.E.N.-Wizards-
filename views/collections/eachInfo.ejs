@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= eachDisease.disease_name %> - Details</title>
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/eachInfo.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="welcome-text">WELCOME</div>
+    <nav class="nav-menu">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Service</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <a href="/info" class="back-link">← Back to Previous Page</a>
+
+    <h1><%= eachDisease.disease_name %></h1>
+    <h3><%= eachDisease.suffix %></h3>
+
+    <div class="section">
+      <div class="section-title">Overview</div>
+      <p><%= eachDisease.overview %></p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Warning Signs</div>
+      <p><%= eachDisease.warning_signs %></p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Common Symptoms</div>
+      <p><%= eachDisease.common_symptoms %></p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Risk Factors</div>
+      <p><%= eachDisease.risk_factors %></p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Complications</div>
+      <p><%= eachDisease.complications %></p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Diagnostic Tests</div>
+      <p><%= eachDisease.diagnostic_tests %></p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Treatment Options</div>
+      <p><%= eachDisease.treatment_options %></p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Medications</div>
+      <p><%= eachDisease.medications %></p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Home Remedies</div>
+      <p><%= eachDisease.home_remedies %></p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">When to See a Doctor</div>
+      <p><%= eachDisease.when_to_see_doctor %></p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Preventive Measures</div>
+      <p><%= eachDisease.preventive_measures %></p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Prognosis</div>
+      <p><%= eachDisease.prognosis %></p>
+    </div>
+  </div>
+
+</body>
+</html>
