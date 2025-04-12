@@ -27,11 +27,33 @@ main()
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+
+const session = require('express-session');
+const flash = require('connect-flash');
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { 
+    maxAge: 1000 * 60 * 60 * 24
+  }
+}));
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.messages = {
+    success: req.flash('success'),
+    error: req.flash('error'),
+    failure: req.flash('failure')
+  };
+  next();
+});
+
+
 
 
 app.get("/loginForm", (req, res) => {
@@ -47,21 +69,16 @@ app.get("/", async (req, res) => {
 })
 
 // register route
-app.get("/register", (req, res) => {
-    res.render("./auth/register.ejs");
+app.get("/loginsignup", (req, res) => {
+    res.render("./auth/loginsignup.ejs");
 })
 
-// Remove the duplicate middleware (keep only one)
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-// Add this login route
-app.get("/loginForm", (req, res) => {
-    res.render("./auth/login.ejs"); // Make sure this file exists
-});
+// app.get("/loginForm", (req, res) => {
+//     res.render("./auth/login.ejs");
+// });
 
 // Modified registration route
-app.post("/successRegister", async (req, res) => {
+app.post("/signup", async (req, res) => {
     try {
         console.log("Registration attempt with:", req.body);
         
@@ -100,9 +117,42 @@ app.post("/successRegister", async (req, res) => {
     }
 });
 
+// login route
+app.post("/login", async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      const user = await User.findOne({ email });
+  
+      if (!user) {
+        req.flash("error", "Email not found"); // Changed from "failure" to "error"
+        return res.redirect("/loginsignup");
+      }
+  
+      const isMatching = await bcrypt.compare(password, user.password);
+      if (!isMatching) {
+        req.flash("error", "Invalid password"); // Changed from "failure" to "error"
+        return res.redirect("/loginsignup");
+      }
+  
+      req.flash("success", "Login successful!");
+      return res.redirect(`/collections/${user._id}`);
+  
+    } catch (error) {
+      req.flash("error", "Server error"); // Changed from "failure" to "error"
+      return res.redirect("/loginsignup");
+    }
+  });
+
 
 // allDoctors route
-app.get("/collections", async (req, res) => {
+app.get("/collections/:id", async (req, res) => {
+    let {id} = req.params;
+    let userExists = User.findById(id);
+    if(!userExists){
+        req.flash("failure", "Please Login to Continue");
+        return res.redirect("/loginsignup");
+    }
+
     const allDoctors = await DoctorListing.find({});
     res.render("collections/allDoctors.ejs", {allDoctors});
 })
