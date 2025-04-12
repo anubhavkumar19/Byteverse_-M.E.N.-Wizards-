@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f9ff;
+}
+
+
+/* getStarted.ejs */
+header {
+    height: 2rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #007bff;
+    color: white;
+}
+
+.logo {
+    font-size: 44px;
+    font-weight: bold;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    font-size: 0;
+    font-weight: 600;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+}
+
+.content h1 {
+    font-size: 36px;
+}
+
+.content h1 span {
+    font-weight: bold;
+    color: #007bff;
+}
+
+ul {
+    padding: 0;
+}
+
+ul li {
+    list-style: none;
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.getStarted {
+    background-color: #007bff;
+    color: white;
+}
+
+.image-container{
+    height: 60vh;
+}

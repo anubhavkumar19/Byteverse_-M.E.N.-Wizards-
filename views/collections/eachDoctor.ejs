@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Each Doctor Page</title>
+</head>
+<body> 
+    <!-- Reaceiving eachDoctor -->
+    <h3>Each doctor Page</h3>
+    <ul>
+        <li><%= eachDoctor.doctorName %></li>
+        <li>&#8377 <%= eachDoctor.fee.toLocaleString("en-IN") %></li>
+        <li><%= eachDoctor.location %></li>
+        <li><%= eachDoctor.country %></li>
+        <li><%= eachDoctor.category %></li>
+    </ul>
+</body>
+</html>
