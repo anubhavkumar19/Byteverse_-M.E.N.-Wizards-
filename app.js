@@ -1,4 +1,4 @@
-if(process.env.NODE_ENV != "production"){
+if (process.env.NODE_ENV != "production") {
     require("dotenv").config();
 }
 
@@ -32,32 +32,62 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-
 const session = require('express-session');
 const flash = require('connect-flash');
 app.use(session({
-  secret: 'your-secret-key',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { 
-    maxAge: 1000 * 60 * 60 * 24
-  }
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24
+    }
 }));
 app.use(flash());
 app.use((req, res, next) => {
-  res.locals.messages = {
-    success: req.flash('success'),
-    error: req.flash('error'),
-    failure: req.flash('failure')
-  };
-  next();
+    res.locals.messages = {
+        success: req.flash('success'),
+        error: req.flash('error'),
+        failure: req.flash('failure')
+    };
+    next();
 });
 
 
+// for authetication and authorization
+const passport = require('passport');
+const { isAuthenticated, isAuthorized } = require("./middleware.js");
+const LocalStrategy = require('passport-local').Strategy;
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 } // 1 day
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(
+    async (username, password, done) => {
+        try {
+            const user = await User.findOne({ username });
+            if (!user) return done(null, false, { message: 'Incorrect username' });
 
+            const isValid = await bcrypt.compare(password, user.password);
+            if (!isValid) return done(null, false, { message: 'Incorrect password' });
 
-app.get("/loginForm", (req, res) => {
-    res.render("./auth/login.ejs"); // Make sure this file exists
+            return done(null, user);
+        } catch (err) {
+            return done(err);
+        }
+    }
+));
+passport.serializeUser((user, done) => done(null, user.id));
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await User.findById(id);
+        done(null, user);
+    } catch (err) {
+        done(err);
+    }
 });
 
 
@@ -81,35 +111,29 @@ app.get("/loginsignup", (req, res) => {
 app.post("/signup", async (req, res) => {
     try {
         console.log("Registration attempt with:", req.body);
-        
+
         let { username, email, password } = req.body;
 
-        // Add validation
         if (!username || !email || !password) {
             console.log("Validation failed - missing fields");
             return res.status(400).send("All fields are required");
         }
 
-        console.log("Attempting to hash password...");
         const hashedPassword = await bcrypt.hash(password, saltingRound);
-        console.log("Password hashed successfully");
 
-        console.log("Creating user object...");
         let newUser = new User({
             username,
             email,
             password: hashedPassword,
         });
 
-        console.log("Attempting to save user...");
         await newUser.save();
-        console.log("User saved successfully:", newUser);
 
-        console.log("Redirecting to login...");
+        req.flash("success", "User registered successfully! Login to continue.");
+
         return res.render("/loginForm.ejs");
-        
+
     } catch (error) {
-        console.error("FULL ERROR:", error);
         if (error.name === 'MongoServerError' && error.code === 11000) {
             return res.status(400).send("Email or username already exists");
         }
@@ -120,48 +144,63 @@ app.post("/signup", async (req, res) => {
 // login route
 app.post("/login", async (req, res) => {
     try {
-      const { email, password } = req.body;
-      const user = await User.findOne({ email });
-  
-      if (!user) {
-        req.flash("error", "Email not found"); // Changed from "failure" to "error"
-        return res.redirect("/loginsignup");
-      }
-  
-      const isMatching = await bcrypt.compare(password, user.password);
-      if (!isMatching) {
-        req.flash("error", "Invalid password"); // Changed from "failure" to "error"
-        return res.redirect("/loginsignup");
-      }
-  
-      req.flash("success", "Login successful!");
-      return res.redirect(`/collections/${user._id}`);
-  
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
+        if (!user) {
+            req.flash("error", "Email not found");
+            return res.redirect("/loginsignup");
+        }
+
+        const isMatc = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            req.flash("error", "Invalid password");
+            return res.redirect("/loginsignup");
+        }
+
+        req.login(user, (err) => {
+            if (err) {
+                req.flash("error", "Login failed");
+                return res.redirect("/loginsignup");
+            }
+
+            req.flash("success", "Login successful!");
+            return res.redirect(`/collections/${user._id}`);
+        });
+
+
     } catch (error) {
-      req.flash("error", "Server error"); // Changed from "failure" to "error"
-      return res.redirect("/loginsignup");
+        req.flash("error", "Server error");
+        return res.redirect("/loginsignup");
     }
-  });
+});
+
+app.get("/logout", (req, res) => {
+    req.logout();
+    req.flash("success", "Logged out successfully");
+    res.redirect("/loginsignup");
+})
 
 
 // allDoctors route
-app.get("/collections/:id", async (req, res) => {
-    let {id} = req.params;
-    let userExists = User.findById(id);
-    if(!userExists){
-        req.flash("failure", "Please Login to Continue");
-        return res.redirect("/loginsignup");
-    }
+app.get("/collections/:id", isAuthenticated, isAuthorized, async (req, res) => {
 
-    const allDoctors = await DoctorListing.find({});
-    res.render("collections/allDoctors.ejs", {allDoctors});
+    try {
+        const allDoctors = await DoctorListing.find({});
+        res.render("collections/allDoctors.ejs", {
+            allDoctors,
+            currentUser: req.user
+        });
+    } catch (error) {
+        req.flash("error", "Server error");
+        res.redirect("/loginsignup");
+    }
 })
 
 // view page, for each doctor
-app.get("/collections/:id",async (req, res) => {
-    let {id} = req.params;
+app.get("/collections/:id", async (req, res) => {
+    let { id } = req.params;
     let eachDoctor = await DoctorListing.findById(id);
-    res.render("./collections/eachDoctor.ejs", {eachDoctor});
+    res.render("./collections/eachDoctor.ejs", { eachDoctor });
 })
 
 
