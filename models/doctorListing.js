@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Review = require("./review.js");
 
 const doctorListingSchema = new Schema({
     doctorName: {
@@ -18,6 +19,13 @@ const doctorListingSchema = new Schema({
         required: true,
         enum: ["Cardiology", "Neurology", "Pulmonology", "Gastroenterology", "Nephrology", "Hematology", "Endocrinology", "Orthopedics", "Dermatology", "Ophthalmology"], // Add all categories here
     },
+    experience: String,
+    rating: Number,
+    availability: String,
+    time: String,
+    contact: Number,
+    email: String,
+    address: String,
     reviews: [
         {
             type: Schema.Types.ObjectId,
@@ -26,7 +34,7 @@ const doctorListingSchema = new Schema({
     ],
     owner: {
         type: Schema.Types.ObjectId,
-        ref: "Doctor",
+        ref: "User",
     },
 });
 

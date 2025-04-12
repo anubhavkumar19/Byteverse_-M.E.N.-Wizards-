@@ -7,11 +7,38 @@
     <title>All Doctors</title>
     <!-- <link rel="stylesheet" href="./css/allDoctors.css"> -->
     <link rel="stylesheet" href="../css/allDoctors.css">
+    <link rel="stylesheet" href="../css/flashing.css">
 </head>
 
 <body>
 
     <% if (currentUser) { %>
+
+        <% if (locals.messages) { %>
+            <% if (messages.success && messages.success.length > 0) { %>
+              <div class="flash-toast success">
+                <%= messages.success[0] %>
+                <span class="close-btn">&times;</span>
+              </div>
+            <% } %>
+            
+            <% if (messages.error && messages.error.length > 0) { %>
+              <div class="flash-toast error">
+                <%= messages.error[0] %>
+                <span class="close-btn">&times;</span>
+              </div>
+            <% } %>
+          
+            <% if (messages.failure && messages.failure.length > 0) { %>
+              <div class="flash-toast error">
+                <%= messages.failure[0] %>
+                <span class="close-btn">&times;</span>
+              </div>
+            <% } %>
+          <% } %>
+      
+
+          
         <div class="container">
             <!-- Search Form -->
             <form class="search-form" action="/doctors/search" method="GET">
@@ -32,8 +59,9 @@
             <div class="doctors-grid">
                 <% allDoctors.forEach((doctor)=> { %>
                     <div class="doctor-card">
-                        <img src="<%= doctor.image.url || '/images/default-doctor.jpg' %>"
-                            alt="<%= doctor.doctorName %>" class="doctor-image">
+                        <a href="/collections/<%= currentUser._id %>/doctor/<%= doctor._id %>">
+                            <img src="<%= doctor.image.url || '/images/default-doctor.jpg' %>" alt="<%= doctor.doctorName %>"
+                              class="doctor-image">
                         <div class="doctor-info">
                             <h3 class="doctor-name">
                                 <%= doctor.doctorName %>
@@ -44,6 +72,7 @@
                             <p class="fee">Consultant Fee: $<%= doctor.fee.toFixed(2) %>
                             </p>
                         </div>
+                        </a>
                     </div>
                     <% }) %>
             </div>
@@ -52,6 +81,32 @@
         <% } else { %>
             <script>window.location.href = '/loginsignup';</script>
             <% } %>
+
+             <!-- <script src="./js/flashing.js"></script> -->
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Auto-dismiss flash messages after 5 seconds
+    const flashMessages = document.querySelectorAll('.flash-toast');
+    
+    flashMessages.forEach(message => {
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        message.style.animation = 'slideOut 0.5s forwards';
+        setTimeout(() => message.remove(), 500);
+      }, 5000);
+      
+      // Manual close button
+      const closeBtn = message.querySelector('.close-btn');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          message.style.animation = 'slideOut 0.5s forwards';
+          setTimeout(() => message.remove(), 500);
+        });
+      }
+    });
+  });
+     </script>
+
 </body>
 
 </html>

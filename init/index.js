@@ -11,35 +11,35 @@ async function main() {
       serverSelectionTimeoutMS: 5000,
       socketTimeoutMS: 45000,
     });
-    console.log("Connected to DB");
+    console.log(`Connected to DB: ${mongoose.connection.name}`);
     
     await initDB();
-    
-    // Give MongoDB time to complete operations before closing
-    await new Promise(resolve => setTimeout(resolve, 1000));
   } catch (err) {
-    console.error("Error:", err.message);
+    console.error("Error:", err);
   } finally {
-    await mongoose.disconnect();
-    console.log("Disconnected from DB");
-    process.exit(0); // Explicit exit
+    // Wait a bit longer before disconnecting
+    setTimeout(async () => {
+      await mongoose.disconnect();
+      console.log("Disconnected from DB");
+    }, 2000);
   }
 }
 
 const initDB = async () => {
   try {
     await DoctorListing.deleteMany({});
+    console.log("Cleared existing doctor listings");
     
     const doctorListingsWithOwner = sampleDoctorListings.map(obj => ({
       ...obj,
-      owner: "67a850df0fe3c3c4ed3b07a5"
+      owner: "67efd718c5376f036e5ece63"
     }));
     
-    await DoctorListing.insertMany(doctorListingsWithOwner);
-    console.log("Data initialized successfully");
+    const result = await DoctorListing.insertMany(doctorListingsWithOwner);
+    console.log(`Inserted ${result.length} doctor listings`);
   } catch (err) {
-    console.error("Initialization failed:", err.message);
-    throw err; // Re-throw to stop execution
+    console.error("Initialization failed:", err);
+    throw err;
   }
 };
 
