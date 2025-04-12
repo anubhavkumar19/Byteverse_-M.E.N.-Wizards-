@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Started</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="/css/flashing.css">
     <link rel="stylesheet" href="./css/navbar.css">
 
 </head>
@@ -21,6 +22,31 @@
         </nav>
     </header>
     
+
+    <% if (locals.messages) { %>
+        <% if (messages.success && messages.success.length > 0) { %>
+          <div class="flash-toast success">
+            <%= messages.success[0] %>
+            <span class="close-btn">&times;</span>
+          </div>
+        <% } %>
+        
+        <% if (messages.error && messages.error.length > 0) { %>
+          <div class="flash-toast error">
+            <%= messages.error[0] %>
+            <span class="close-btn">&times;</span>
+          </div>
+        <% } %>
+      
+        <% if (messages.failure && messages.failure.length > 0) { %>
+          <div class="flash-toast error">
+            <%= messages.failure[0] %>
+            <span class="close-btn">&times;</span>
+          </div>
+        <% } %>
+      <% } %>
+
+    
     <section class="main">
         <div class="content">
             <h1>Want To Have <span>Appointments?</span></h1>
@@ -32,18 +58,18 @@
             </ul>
             <div class="buttons">
                 <form action="/loginsignup">
-                    <button class="getStarted">Get Started</button>
+                    <button class="getStarted">Proceed as Patient</button>
                 </form>
             </div>
             <div class="buttons">
                 <form action="/info">
-                    <button class="getStarted">Info</button>
+                    <button class="getStarted">Reading Articles</button>
                 </form>
             </div>
 
             <div class="buttons">
-                <form action="/doctorSignup">
-                    <button class="getStarted">Continue as a Doctor</button>
+                <form action="/doctor">
+                    <button class="getStarted">Proceed as Doctor</button>
                 </form>
             </div>
 
@@ -52,5 +78,31 @@
             <img src="./assets/doctor.jpg" alt="Doctor">
         </div>
     </section>
+    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Auto-dismiss flash messages after 5 seconds
+    const flashMessages = document.querySelectorAll('.flash-toast');
+    
+    flashMessages.forEach(message => {
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        message.style.animation = 'slideOut 0.5s forwards';
+        setTimeout(() => message.remove(), 500);
+      }, 5000);
+      
+      // Manual close button
+      const closeBtn = message.querySelector('.close-btn');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          message.style.animation = 'slideOut 0.5s forwards';
+          setTimeout(() => message.remove(), 500);
+        });
+      }
+    });
+  });
+     </script>
+
 </body>
 </html>

@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <title>Add Doctor Profile</title>
   <link rel="stylesheet" href="/css/navbar.css">
-  <link rel="stylesheet" href="/css/doctorSignup.css"> <!-- Optional: Add styling -->
+  <link rel="stylesheet" href="/css/doctorSignup.css"> 
 </head>
 
 <body>
@@ -23,25 +23,25 @@
 
   <main class="form-container">
     <h1>Add Doctor Profile</h1>
-    <form action="/doctors" method="POST" enctype="multipart/form-data">
-      <label>Doctor Name</label>
-      <input type="text" name="doctorName" required>
+    <form action="/doctorSignup" method="POST" enctype="multipart/form-data">
+      <label for="doctorName">Doctor Name *</label>
+      <input type="text" id="doctorName" name="doctorName" placeholder="Enter full name" required>
 
-      <label>Image</label>
-      <input type="file" name="image">
+      <label for="image">Doctor Image</label>
+      <input type="file" id="image" name="image" accept="image/*">
 
-      <label>Fee</label>
-      <input type="number" name="fee">
+      <label for="fee">Consultation Fee</label>
+      <input type="number" id="fee" name="fee" placeholder="Enter fee in INR">
 
-      <label>Location</label>
-      <input type="text" name="location">
+      <label for="location">Location *</label>
+      <input type="text" id="location" name="location" placeholder="City or Clinic location" required>
 
-      <label>Country</label>
-      <input type="text" name="country">
+      <label for="country">Country *</label>
+      <input type="text" id="country" name="country" placeholder="e.g., India" required>
 
-      <label>Category</label>
-      <select name="category" required>
-        <option value="">Select a category</option>
+      <label for="category">Specialization *</label>
+      <select id="category" name="category" required>
+        <option value="">Select category</option>
         <option value="Cardiology">Cardiology</option>
         <option value="Neurology">Neurology</option>
         <option value="Pulmonology">Pulmonology</option>
@@ -54,30 +54,38 @@
         <option value="Ophthalmology">Ophthalmology</option>
       </select>
 
-      <label>Experience</label>
-      <input type="text" name="experience">
+      <label for="experience">Experience</label>
+      <input type="text" id="experience" name="experience" placeholder="e.g., 10+ years">
 
-      <label>Rating</label>
-      <input type="number" step="0.1" max="5" name="rating">
+      <label for="rating">Rating (out of 5)</label>
+      <input type="number" id="rating" name="rating" step="0.1" max="5" min="0" placeholder="e.g., 4.5">
 
-      <label>Availability</label>
-      <input type="text" name="availability" placeholder="e.g., Mon-Fri">
+      <label for="availability">Availability</label>
+      <input type="text" id="availability" name="availability" placeholder="e.g., Mon–Fri">
 
-      <label>Time</label>
-      <input type="text" name="time" placeholder="e.g., 10:00 AM - 5:00 PM">
+      <label for="time">Timing</label>
+      <input type="text" id="time" name="time" placeholder="e.g., 10:00 AM - 5:00 PM">
 
-      <label>Contact Number</label>
-      <input type="tel" name="contact">
+      <label for="contact">Contact Number *</label>
+      <input type="tel" id="contact" name="contact" placeholder="e.g., 9876543210" required>
 
-      <label>Email</label>
-      <input type="email" name="email">
+      <label for="email">Email *</label>
+      <input type="email" id="email" name="email" placeholder="e.g., doctor@example.com" required>
 
-      <label>Address</label>
-      <textarea name="address" rows="3"></textarea>
+      <label for="address">Clinic Address</label>
+      <textarea id="address" name="address" rows="3" placeholder="Street, City, State, ZIP"></textarea>
+
+      <label for="password">Password *</label>
+      <input type="password" id="password" name="password" placeholder="Create your Password" required>
 
       <button type="submit">Submit</button>
     </form>
+    <h1 style="align-items: center; text-align: center;">OR</h1>
+    <form action="/doctorLogin">
+      <button type="submit">Sign in</button>
+    </form>
   </main>
+  
 </body>
 
 </html>

@@ -1,0 +1,35 @@
+/* Reply Form Styling */
+.review-card form {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.review-card textarea[name="replyText"] {
+    width: 100%;
+    min-height: 80px;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.review-card .submit-button {
+    margin-top: 0.5rem;
+    padding: 0.4rem 1rem;
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.review-card .submit-button:hover {
+    background-color: #005fa3;
+}

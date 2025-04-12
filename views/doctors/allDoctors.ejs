@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Doctors</title>
+  <link rel="stylesheet" href="/css/allDoctors.css">
+  <link rel="stylesheet" href="/css/flashing.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+</head>
+
+<body>
+
+  <% if (currentDoctor) { %>
+
+    <header class="navbar">
+      <div class="welcome-text">WELCOME</div>
+      <nav class="nav-menu">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Gallery</a></li>
+          <li><a href="#">Service</a></li>
+    
+          
+            <li class="user-info">
+              <span class="username">Hi, <%= currentDoctor.doctorName %></span>
+              <a href="/doctors/logout" class="logout-link">Log Out</a>
+            </li>
+        </ul>
+      </nav>
+    </header>
+    
+    
+    <% if (locals.messages) { %>
+      <% if (messages.success && messages.success.length > 0) { %>
+        <div class="flash-toast success">
+          <%= messages.success[0] %>
+          <span class="close-btn">&times;</span>
+        </div>
+      <% } %>
+      
+      <% if (messages.error && messages.error.length > 0) { %>
+        <div class="flash-toast error">
+          <%= messages.error[0] %>
+          <span class="close-btn">&times;</span>
+        </div>
+      <% } %>
+    
+      <% if (messages.failure && messages.failure.length > 0) { %>
+        <div class="flash-toast error">
+          <%= messages.failure[0] %>
+          <span class="close-btn">&times;</span>
+        </div>
+      <% } %>
+    <% } %>
+
+
+
+    <div class="container">
+      <!-- Search Form -->
+      <form class="search-form" action="/collections/doctor/search/" method="GET">
+        <div class="search-wrapper">
+          <input type="search" class="search-input" placeholder="Search by name, specialty or hospital"
+            name="searchQuery" required>
+          <button type="submit" class="search-button">
+            <svg class="search-icon" viewBox="0 0 24 24">
+              <path
+                d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+            </svg>
+            Search
+          </button>
+        </div>
+      </form>
+
+      <!-- Doctors Grid -->
+      <div class="doctors-grid">
+        <% allDoctors.forEach((doctor)=> { %>
+          <div class="doctor-card">
+            <a href="/doctors/collections/<%= doctor._id %>">
+              <img src="<%= doctor.image.url || '/images/default-doctor.jpg' %>" alt="<%= doctor.doctorName %>"
+                class="doctor-image">
+              <div class="doctor-info">
+                <h3 class="doctor-name">
+                  <%= doctor.doctorName %>
+                </h3>
+                <p class="specialization">
+                  <%= doctor.category %>
+                </p>
+                <p class="fee">Consultant Fee: $<%= doctor.fee.toFixed(2) %>
+                </p>
+              </div>
+            </a>
+          </div>
+          <% }) %>
+      </div>
+    </div>
+
+    <% } else { %>
+      <script>window.location.href = '/loginsignup';</script>
+      <% } %>
+
+      <!-- <script src="./js/flashing.js"></script> -->
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Auto-dismiss flash messages after 5 seconds
+    const flashMessages = document.querySelectorAll('.flash-toast');
+    
+    flashMessages.forEach(message => {
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        message.style.animation = 'slideOut 0.5s forwards';
+        setTimeout(() => message.remove(), 500);
+      }, 5000);
+      
+      // Manual close button
+      const closeBtn = message.querySelector('.close-btn');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          message.style.animation = 'slideOut 0.5s forwards';
+          setTimeout(() => message.remove(), 500);
+        });
+      }
+    });
+  });
+     </script>
+
+</body>
+
+</html>
