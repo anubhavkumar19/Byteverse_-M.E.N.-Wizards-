@@ -145,25 +145,32 @@ p a:hover {
     min-width: 300px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.5s forwards;
-  }
-  
-  @keyframes slideIn {
-    from { top: -100px; opacity: 0; }
-    to { top: 20px; opacity: 1; }
-  }
-  
-  .success {
+}
+
+@keyframes slideIn {
+    from {
+        top: -100px;
+        opacity: 0;
+    }
+
+    to {
+        top: 20px;
+        opacity: 1;
+    }
+}
+
+.success {
     background-color: #4CAF50;
     color: white;
-  }
-  
-  .error {
+}
+
+.error {
     background-color: #F44336;
     color: white;
-  }
-  
-  .close-btn {
+}
+
+.close-btn {
     margin-left: 15px;
     cursor: pointer;
     font-size: 20px;
-  }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Add Doctor Profile</title>
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/doctorSignup.css"> <!-- Optional: Add styling -->
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="welcome-text">WELCOME</div>
+    <nav class="nav-menu">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Service</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="form-container">
+    <h1>Add Doctor Profile</h1>
+    <form action="/doctors" method="POST" enctype="multipart/form-data">
+      <label>Doctor Name</label>
+      <input type="text" name="doctorName" required>
+
+      <label>Image</label>
+      <input type="file" name="image">
+
+      <label>Fee</label>
+      <input type="number" name="fee">
+
+      <label>Location</label>
+      <input type="text" name="location">
+
+      <label>Country</label>
+      <input type="text" name="country">
+
+      <label>Category</label>
+      <select name="category" required>
+        <option value="">Select a category</option>
+        <option value="Cardiology">Cardiology</option>
+        <option value="Neurology">Neurology</option>
+        <option value="Pulmonology">Pulmonology</option>
+        <option value="Gastroenterology">Gastroenterology</option>
+        <option value="Nephrology">Nephrology</option>
+        <option value="Hematology">Hematology</option>
+        <option value="Endocrinology">Endocrinology</option>
+        <option value="Orthopedics">Orthopedics</option>
+        <option value="Dermatology">Dermatology</option>
+        <option value="Ophthalmology">Ophthalmology</option>
+      </select>
+
+      <label>Experience</label>
+      <input type="text" name="experience">
+
+      <label>Rating</label>
+      <input type="number" step="0.1" max="5" name="rating">
+
+      <label>Availability</label>
+      <input type="text" name="availability" placeholder="e.g., Mon-Fri">
+
+      <label>Time</label>
+      <input type="text" name="time" placeholder="e.g., 10:00 AM - 5:00 PM">
+
+      <label>Contact Number</label>
+      <input type="tel" name="contact">
+
+      <label>Email</label>
+      <input type="email" name="email">
+
+      <label>Address</label>
+      <textarea name="address" rows="3"></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </main>
+</body>
+
+</html>

@@ -7,9 +7,28 @@
     <link rel="stylesheet" href="/css/eachDoctor.css">
     <link rel="stylesheet" href="/css/flashing.css">
     <link rel="stylesheet" href="/css/starRating.css">
+    <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body> 
     <% if (currentUser) { %>
+        
+        <header class="navbar">
+            <div class="welcome-text">WELCOME</div>
+            <nav class="nav-menu">
+              <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">Service</a></li>
+          
+                
+                  <li class="user-info">
+                    <span class="username">Hi, <%= currentUser.username %></span>
+                    <a href="/logout" class="logout-link">Log Out</a>
+                  </li>
+              </ul>
+            </nav>
+          </header>
 
         <% if (locals.messages) { %>
             <% if (messages.success && messages.success.length > 0) { %>
