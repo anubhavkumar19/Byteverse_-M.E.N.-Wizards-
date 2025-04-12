@@ -3,7 +3,7 @@ const DoctorListing = require("../models/doctorListing.js");
 const sampleDoctorListings = require("./doctorData.js");
 
 
-const MONGO_URL = "mongodb+srv://sachinsingh291003:p6kaz5aODjkDdNgz@cluster0.olgcx2r.mongodb.net/your-database-name?retryWrites=true&w=majority";
+const MONGO_URL = process.env.ATLASDB_URL;
 
 async function main() {
   try {
