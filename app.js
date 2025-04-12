@@ -39,12 +39,14 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const Review = require("./models/review.js");
 const { isAuthenticated, isAuthorized, isLoggedIn, isReviewAuthor } = require("./middleware.js");
+const sampleInfoData = require("./init/infoData.js");
+const DiseaseData = require("./models/diseaseData.js");
 
 app.use(session({
     secret: 'your-secret-key',
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false, maxAge: 20 * 60 * 60 * 1000 }
+    cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 }
 }));
 app.use(flash());
 app.use(passport.initialize());
@@ -89,10 +91,14 @@ app.get("/", async (req, res) => {
     res.render("./collections/getStarted.ejs");
 });
 
-app.get("/logout", (req, res) => {
-    req.logout();
-    req.flash("success", "Logged out successfully");
-    res.redirect("/loginsignup");
+app.get('/logout', (req, res, next) => {
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        }
+        req.flash('success', 'Logged out successfully');
+        res.redirect('/loginsignup');
+    });
 });
 
 app.get("/loginsignup", (req, res) => {
@@ -122,7 +128,7 @@ app.post("/signup", async (req, res) => {
     }
 });
 
-app.post("/login", async (req, res) => {
+app.post("/login", async (req, res, next) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
@@ -149,6 +155,78 @@ app.post("/login", async (req, res) => {
     }
 });
 
+// info route
+app.get("/info", async (req, res) => {
+    const allInfo = await DiseaseData.find({});
+    res.render("collections/allInfo.ejs", { allInfo });
+})
+
+// doctor signup
+// app.get("/doctorSignup", (req, res))
+
+// Search disease information
+app.get("/collections/disease/search", async (req, res) => {
+    try {
+        const { searchQuery } = req.query;
+
+        if (!searchQuery || searchQuery.trim().length < 2) {
+            req.flash("error", "Please enter vlaid details");
+            return res.redirect("/info");
+        }
+
+        let results = await DiseaseData.find({
+            $or: [
+                { disease_name: { $regex: searchQuery, $options: 'i' } },
+                { suffix: { $regex: searchQuery, $options: 'i' } }
+            ]
+        });
+
+        if (results.length === 0) {
+            results = await DiseaseData.find({
+                $or: [
+                    { overview: { $regex: searchQuery, $options: 'i' } },
+                    { warning_signs: { $regex: searchQuery, $options: 'i' } },
+                    { risk_factors: { $regex: searchQuery, $options: 'i' } }
+                ]
+            });
+        }
+
+        res.render("collections/searchedDisease.ejs", { 
+            allInfo: results, searchQuery
+        });
+
+    } catch (error) {
+        console.error("Search error:", error);
+        req.flash("error", "Failed to search diseases");
+        res.redirect("/info");
+    }
+});
+
+
+// Search doctors
+app.get("/collections/doctor/search", async (req, res) => {
+    try {
+        const { searchQuery } = req.query;
+
+        const results = await DoctorListing.find({
+            $or: [
+                { doctorName: { $regex: searchQuery, $options: 'i' } },
+                { category: { $regex: searchQuery, $options: 'i' } },
+                { location: { $regex: searchQuery, $options: 'i' } },
+                { address: { $regex: searchQuery, $options: 'i' } },
+                { country: { $regex: searchQuery, $options: 'i' } }
+            ]
+        }).populate('reviews');
+
+        res.render("collections/searchedQuery.ejs", { allDoctors: results, currentUser: req.user, });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
+    }
+});
+
+
+// main page for user
 app.get("/collections/:id", isAuthenticated, isAuthorized, async (req, res) => {
     try {
         const allDoctors = await DoctorListing.find({});
@@ -161,6 +239,16 @@ app.get("/collections/:id", isAuthenticated, isAuthorized, async (req, res) => {
         res.redirect("/loginsignup");
     }
 });
+
+// show info route or eachInfo 
+app.get("/collections/disease/:idDisease", async (req, res) => {
+    let { idDisease } = req.params;
+
+    const eachDisease = await DiseaseData.findById(idDisease);
+
+    res.render("collections/eachInfo.ejs", { eachDisease });
+
+})
 
 app.get("/collections/:id/doctor/:idD", isAuthenticated, isAuthorized, async (req, res) => {
     let { idD, id } = req.params;
@@ -201,4 +289,4 @@ app.delete("/collections/:id/doctor/:idD/reviews/:idR", isLoggedIn, isReviewAuth
 
 app.listen(port, () => {
     console.log("app is listening to port 8080");
-})
+});
