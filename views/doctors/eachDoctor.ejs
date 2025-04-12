@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="/css/flashing.css">
     <link rel="stylesheet" href="/css/starRating.css">
     <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/replyForm.css">
 </head>
-<body> 
-    <% if (currentUser) { %>
-        
+<body>
+    <% if (currentDoctor) { %>
+
         <header class="navbar">
             <div class="welcome-text">WELCOME</div>
             <nav class="nav-menu">
@@ -23,8 +24,8 @@
           
                 
                   <li class="user-info">
-                    <span class="username">Hi, <%= currentUser.username %></span>
-                    <a href="/logout" class="logout-link">Log Out</a>
+                    <span class="username">Hi, <%= currentDoctor.doctorName %></span>
+                    <a href="/doctors/logout" class="logout-link">Log Out</a>
                   </li>
               </ul>
             </nav>
@@ -81,7 +82,6 @@
                     <p><span class="info-label">Fee:</span> $<%=doctor.fee%></p>
                     <p><span class="info-label">Location:</span> <%=doctor.address%></p>
                 </div>
-                <a href="/book/<%=doctor._id%>" class="book-button">Book Appointment</a>
             </div>
 
             <!-- Map Section -->
@@ -98,12 +98,13 @@
                 
                 <!-- Review Form -->
                 <div class="review-form">
-                    <h3>Leave a Review</h3>
-                    <form method="POST" action="/collections/<%=currentUser._id%>/doctor/<%=doctor._id%>/reviews">
+                    <!-- <h3>Leave a Review</h3> -->
+                    <h3>You as a Doctor can reply to users comments</h3>
+                    <!-- <form method="POST" action="/collections/<%=currentDoctor._id%>/doctor/<%=doctor._id%>/reviews">
                         <div class="form-group">
                             <label class="form-label">Rating</label>
                             <div class="starability-basic">
-                                <input type="radio" id="rate1" name="review[rating]" value="1" required />
+                                <input type="radio" id="rate1" name="review[rating]" value="1" />
                                 <label for="rate1" title="Terrible">1 star</label>
                                 <input type="radio" id="rate2" name="review[rating]" value="2" />
                                 <label for="rate2" title="Not good">2 stars</label>
@@ -120,36 +121,51 @@
                             <textarea id="comment" name="review[comment]" class="form-textarea" required></textarea>
                         </div>
                         <button type="submit" class="submit-button">Submit Review</button>
-                    </form>
+                    </form> -->
                 </div>
 
                 <!-- Reviews List -->
                 <div class="reviews-list">
                     <% if (doctor.reviews && doctor.reviews.length > 0) { %>
                         <% doctor.reviews.forEach(review => { %>
-                            <div class="review-card">
+                            <!-- <div class="review-card">
                                 <div class="review-header">
                                     <h4 class="review-author">@<%= review.author.username %></h4>
                                     <div class="starability-result" data-rating="<%= review.rating %>"></div>
                                 </div>
                                 <p class="review-content"><%= review.comment %></p>
                                 <p class="review-date"><%= review.createdAt.toLocaleDateString() %></p>
-                                <% if (currentUser && review.author.equals(currentUser._id)) { %>
+                                <% if (currentDoctor && review.author.equals(currentDoctor._id)) { %>
                                     <form method="POST" action="/collections/<%=currentUser._id%>/doctor/<%=doctor._id%>/reviews/<%=review._id%>?_method=DELETE" class="delete-form">
                                         <button type="submit" class="delete-button">Delete Review</button>
                                     </form>
-                                    <% } %><br>
-                                <lol style="background-color: rgb(136, 223, 255); border-radius: 0.5rem;">
-                                  <h4>Doctor's Reply (<%= review.replyBy %>)</h4>
-                                  <% if (review.reply.text != null) { %>
-                                    <p class="review-content"><%= review.reply.text %></p>
-                                    <p class="review-date"><%= review.reply.repliedAt.toLocaleDateString() %></p>
-                                  <% }else{ %>
-                                    <p>No replies yet!</p>
                                 <% } %>
-                            </lol>
+                            </div> -->
 
-                            </div>
+                            <!-- Inside reviews.forEach -->
+<div class="review-card">
+    <div class="review-header">
+        <h4 class="review-author">@<%= review.author.username %></h4>
+        <div class="starability-result" data-rating="<%= review.rating %>"></div>
+    </div>
+    <p class="review-content"><%= review.comment %></p>
+    <p class="review-date"><%= review.createdAt.toLocaleDateString() %></p>
+
+    <% if (review.reply && review.reply.text) { %>
+        <div class="doctor-reply">
+            <strong>Doctor's Reply: (<%= review.replyBy %>)</strong>
+            <p><%= review.reply.text %></p>
+            <p class="reply-date"><%= new Date(review.reply.repliedAt).toLocaleDateString() %></p>
+        </div>
+    <% } else if (currentDoctor) { %>
+        <!-- Reply form visible only to doctor -->
+        <form method="POST" action="/doctors/collections/<%= doctor._id %>/reviews/<%= review._id %>/reply">
+            <textarea name="replyText" placeholder="Write your reply..." required></textarea>
+            <button type="submit" class="submit-button">Reply</button>
+        </form>
+    <% } %>
+</div>
+
                         <% }); %>
                     <% } else { %>
                         <p class="no-reviews">No reviews yet. Be the first to review!</p>
@@ -185,19 +201,6 @@
       }
     });
   });
-  
-
-
-
-  document.querySelector('form').addEventListener('submit', function(e) {
-    const rating = document.querySelector('input[name="review[rating]"]:checked');
-    const comment = document.getElementById('comment').value.trim();
-    
-    if (!rating || !comment) {
-        e.preventDefault();
-        alert('Please provide both a rating and comment');
-    }
-});
      </script>
 </body>
 </html>
