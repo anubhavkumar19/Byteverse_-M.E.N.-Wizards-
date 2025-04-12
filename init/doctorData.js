@@ -8,7 +8,14 @@ const sampleDoctorListings = [
     fee: 200,
     location: "New York",
     country: "USA",
-    category: "Cardiology"
+    category: "Cardiology",
+    experience: "10 years",
+    rating: 5,
+    availability: "Monday, Wednesday, Friday, Saturday",
+    time: "10:00AM - 05:00PM",
+    contact: 7537984732,
+    email: "ululu@gmail.com",
+    address: "abc, gkan, NewYork, USA",
   },
   {
     doctorName: "Dr. Michael Chen",
@@ -19,7 +26,14 @@ const sampleDoctorListings = [
     fee: 250,
     location: "London",
     country: "UK",
-    category: "Neurology"
+    category: "Neurology",
+    experience: "10 years",
+    rating: 5,
+    availability: "Monday, Wednesday, Friday, Saturday",
+    time: "10:00AM - 05:00PM",
+    contact: 7537984732,
+    email: "ululu@gmail.com",
+    address: "abc, gkan, NewYork, USA",
   },
   {
     doctorName: "Dr. Emily Rodriguez",
@@ -30,7 +44,14 @@ const sampleDoctorListings = [
     fee: 180,
     location: "Toronto",
     country: "Canada",
-    category: "Orthopedics"
+    category: "Orthopedics",
+    experience: "10 years",
+    rating: 5,
+    availability: "Monday, Wednesday, Friday, Saturday",
+    time: "10:00AM - 05:00PM",
+    contact: 7537984732,
+    email: "ululu@gmail.com",
+    address: "abc, gkan, NewYork, USA",
   },
   {
     doctorName: "Dr. Priya Kapoor",
@@ -41,7 +62,14 @@ const sampleDoctorListings = [
     fee: 150,
     location: "Mumbai",
     country: "India",
-    category: "Dermatology"
+    category: "Dermatology",
+    experience: "10 years",
+    rating: 5,
+    availability: "Monday, Wednesday, Friday, Saturday",
+    time: "10:00AM - 05:00PM",
+    contact: 7537984732,
+    email: "ululu@gmail.com",
+    address: "abc, gkan, NewYork, USA",
   },
   {
     doctorName: "Dr. James Wilson",
@@ -52,7 +80,14 @@ const sampleDoctorListings = [
     fee: 220,
     location: "Sydney",
     country: "Australia",
-    category: "Ophthalmology"
+    category: "Ophthalmology",
+    experience: "10 years",
+    rating: 5,
+    availability: "Monday, Wednesday, Friday, Saturday",
+    time: "10:00AM - 05:00PM",
+    contact: 7537984732,
+    email: "ululu@gmail.com",
+    address: "abc, gkan, NewYork, USA",
   }
 ];
 

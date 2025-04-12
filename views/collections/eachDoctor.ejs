@@ -4,16 +4,158 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Each Doctor Page</title>
+    <link rel="stylesheet" href="/css/eachDoctor.css">
+    <link rel="stylesheet" href="/css/flashing.css">
+    <link rel="stylesheet" href="/css/starRating.css">
 </head>
 <body> 
-    <!-- Reaceiving eachDoctor -->
-    <h3>Each doctor Page</h3>
-    <ul>
-        <li><%= eachDoctor.doctorName %></li>
-        <li>&#8377 <%= eachDoctor.fee.toLocaleString("en-IN") %></li>
-        <li><%= eachDoctor.location %></li>
-        <li><%= eachDoctor.country %></li>
-        <li><%= eachDoctor.category %></li>
-    </ul>
+    <% if (currentUser) { %>
+
+        <% if (locals.messages) { %>
+            <% if (messages.success && messages.success.length > 0) { %>
+              <div class="flash-toast success">
+                <%= messages.success[0] %>
+                <span class="close-btn">&times;</span>
+              </div>
+            <% } %>
+            
+            <% if (messages.error && messages.error.length > 0) { %>
+              <div class="flash-toast error">
+                <%= messages.error[0] %>
+                <span class="close-btn">&times;</span>
+              </div>
+            <% } %>
+          
+            <% if (messages.failure && messages.failure.length > 0) { %>
+              <div class="flash-toast error">
+                <%= messages.failure[0] %>
+                <span class="close-btn">&times;</span>
+              </div>
+            <% } %>
+          <% } %>
+
+
+
+
+        <div class="doctor-container">
+            <!-- Doctor Information Section -->
+            <div class="doctor-profile">
+                <img src="<%=doctor.image.url%>" alt="<%=doctor.doctorName%>" class="doctor-image">
+                <div class="doctor-details">
+                    <h1><%=doctor.doctorName%></h1>
+                    <p><span class="detail-label">Specialization:</span> <%=doctor.category%></p>
+                    <p><span class="detail-label">Experience:</span> <%=doctor.experience%> years</p>
+                    <p><span class="detail-label">Rating:</span> 
+                        <span class="starability-result" data-rating="<%=doctor.rating%>"></span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Additional Information Section -->
+            <div class="doctor-more-info">
+                <h2>More Information</h2>
+                <div class="info-grid">
+                    <p><span class="info-label">Availability:</span> <%=doctor.availability%></p>
+                    <p><span class="info-label">Available Time:</span> <%=doctor.time%></p>
+                    <p><span class="info-label">Contact:</span> <%=doctor.contact%></p>
+                    <p><span class="info-label">Email:</span> <%=doctor.email%></p>
+                    <p><span class="info-label">Fee:</span> $<%=doctor.fee%></p>
+                    <p><span class="info-label">Location:</span> <%=doctor.address%></p>
+                </div>
+                <a href="/book/<%=doctor._id%>" class="book-button">Book Appointment</a>
+            </div>
+
+            <!-- Map Section -->
+            <div class="map-section">
+                <h2>Find Us Here</h2>
+                <iframe src="https://maps.google.com/maps?q=<%=doctor.location?.latitude%>,<%=doctor.location?.longitude%>&z=15&output=embed"
+                    allowfullscreen loading="lazy" class="map-iframe">
+                </iframe>
+            </div>
+
+            <!-- Reviews Section -->
+            <div class="reviews-section">
+                <h2>Patient Reviews</h2>
+                
+                <!-- Review Form -->
+                <div class="review-form">
+                    <h3>Leave a Review</h3>
+                    <form method="POST" action="/collections/<%=currentUser._id%>/doctor/<%=doctor._id%>/reviews">
+                        <div class="form-group">
+                            <label class="form-label">Rating</label>
+                            <div class="starability-basic">
+                                <input type="radio" id="rate1" name="review[rating]" value="1" />
+                                <label for="rate1" title="Terrible">1 star</label>
+                                <input type="radio" id="rate2" name="review[rating]" value="2" />
+                                <label for="rate2" title="Not good">2 stars</label>
+                                <input type="radio" id="rate3" name="review[rating]" value="3" />
+                                <label for="rate3" title="Average">3 stars</label>
+                                <input type="radio" id="rate4" name="review[rating]" value="4" />
+                                <label for="rate4" title="Very good">4 stars</label>
+                                <input type="radio" id="rate5" name="review[rating]" value="5" />
+                                <label for="rate5" title="Amazing">5 stars</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="comment" class="form-label">Comment</label>
+                            <textarea id="comment" name="review[comment]" class="form-textarea" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">Submit Review</button>
+                    </form>
+                </div>
+
+                <!-- Reviews List -->
+                <div class="reviews-list">
+                    <% if (doctor.reviews && doctor.reviews.length > 0) { %>
+                        <% doctor.reviews.forEach(review => { %>
+                            <div class="review-card">
+                                <div class="review-header">
+                                    <h4 class="review-author">@<%= review.author.username %></h4>
+                                    <div class="starability-result" data-rating="<%= review.rating %>"></div>
+                                </div>
+                                <p class="review-content"><%= review.comment %></p>
+                                <p class="review-date"><%= review.createdAt.toLocaleDateString() %></p>
+                                <% if (currentUser && review.author.equals(currentUser._id)) { %>
+                                    <form method="POST" action="/collections/<%=currentUser._id%>/doctor/<%=doctor._id%>/reviews/<%=review._id%>?_method=DELETE" class="delete-form">
+                                        <button type="submit" class="delete-button">Delete Review</button>
+                                    </form>
+                                <% } %>
+                            </div>
+                        <% }); %>
+                    <% } else { %>
+                        <p class="no-reviews">No reviews yet. Be the first to review!</p>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    <% } else { %>
+        <script>window.location.href = '/loginsignup';</script>
+    <% } %>
+
+    <script src="/public/js/star-rating.js"></script>
+    <!-- <script src="/public/js/flashing.js"></script> -->
+     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Auto-dismiss flash messages after 5 seconds
+    const flashMessages = document.querySelectorAll('.flash-toast');
+    
+    flashMessages.forEach(message => {
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        message.style.animation = 'slideOut 0.5s forwards';
+        setTimeout(() => message.remove(), 500);
+      }, 5000);
+      
+      // Manual close button
+      const closeBtn = message.querySelector('.close-btn');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          message.style.animation = 'slideOut 0.5s forwards';
+          setTimeout(() => message.remove(), 500);
+        });
+      }
+    });
+  });
+     </script>
 </body>
 </html>
