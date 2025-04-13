@@ -3,6 +3,7 @@
 # PulsePoint : Smart Medical Appointment & Remedy System
   - Theme : Healthcare and Medical Website
   - Track : Web Development (Full Stack)
+  - Deployed Link (on render) : https://pulsepoint-nh9x.onrender.com/
   - PPT Link : https://drive.google.com/file/d/1Bk7NUd9DEdVlH_jjL9cT7otwQx9qIZNt/view?usp=sharing
 
   ---
