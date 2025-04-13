@@ -33,8 +33,8 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-const methodOverride = require("method-override");
-app.use(methodOverride("_method"));
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
 
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -230,7 +230,7 @@ app.post('/doctors/login', async (req, res) => {
 });
 
 // doctors collections on sign in
-app.get("/doctors/collections", isDoctorLoggedIn, async (req, res) => {
+app.get('/doctors/collections', isDoctorLoggedIn, async (req, res) => {
     try {
         const allDoctors = await DoctorListing.find({});
         const currentDoctor = await DoctorListing.findById(req.session.doctorId);
@@ -305,7 +305,7 @@ app.get("/collections/disease/search", async (req, res) => {
             });
         }
 
-        res.render("collections/searchedDisease.ejs", { 
+        res.render("collections/searchedDisease.ejs", {
             allInfo: results, searchQuery
         });
 
@@ -376,8 +376,8 @@ app.get("/collections/:id", isAuthenticated, isAuthorized, async (req, res) => {
             currentUser: req.user,
         });
     } catch (error) {
-        req.flash("error", "Server error");
-        res.redirect("/loginsignup");
+        req.flash('error', 'Server error');
+        res.redirect('/loginsignup');
     }
 });
 

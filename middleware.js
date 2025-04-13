@@ -23,7 +23,15 @@ const isLoggedIn = (req, res, next) =>{
         return res.redirect("/loginsignup");
     }
     next();
-};  
+};
+
+const isDoctorLoggedIn = (req, res, next) => {
+  if (!req.session.doctorId) {
+      req.flash("error", "You must be logged in as a doctor to view this page.");
+      return res.redirect("/doctors/login");
+  }
+  next();
+}
 
 // const isReviewAuthor = async (req, res, next) => {
 //   let { id, idD, idR } = req.params;
@@ -56,4 +64,4 @@ const isReviewAuthor = async (req, res, next) => {
 }
 
   
-module.exports = {isAuthenticated, isAuthorized, isLoggedIn, isReviewAuthor};
+module.exports = {isAuthenticated, isAuthorized, isLoggedIn, isReviewAuthor, isDoctorLoggedIn};

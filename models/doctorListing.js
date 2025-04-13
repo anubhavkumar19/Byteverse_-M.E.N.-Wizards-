@@ -26,6 +26,10 @@ const doctorListingSchema = new Schema({
     contact: Number,
     email: String,
     address: String,
+    password: {
+        type: String,
+        required: true,
+    },
     reviews: [
         {
             type: Schema.Types.ObjectId,
