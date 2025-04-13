@@ -317,7 +317,7 @@ app.get("/collections/disease/search", async (req, res) => {
 });
 
 
-// Search doctors
+// Search doctors by user
 app.get("/collections/doctor/search", async (req, res) => {
     try {
         const { searchQuery } = req.query;

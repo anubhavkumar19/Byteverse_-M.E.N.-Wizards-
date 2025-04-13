@@ -6,12 +6,13 @@
   <title><%= eachDisease.disease_name %> - Details</title>
   <link rel="stylesheet" href="/css/navbar.css">
   <link rel="stylesheet" href="/css/eachInfo.css">
+  <link rel="stylesheet" href="/css/footer.css">
 </head>
 <body>
 
   <!-- Navbar -->
-  <header class="navbar">
-    <div class="welcome-text">WELCOME</div>
+  <header class="navbar newnav">
+    <div class="welcome-text">PulsePoint</div>
     <nav class="nav-menu">
       <ul>
         <li><a href="#">Home</a></li>
@@ -88,6 +89,11 @@
       <p><%= eachDisease.prognosis %></p>
     </div>
   </div>
+
+
+
+  <%- include("../includes/footer.ejs") %>
+
 
 </body>
 </html>

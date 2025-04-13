@@ -1,0 +1,94 @@
+/* Make html and body full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Wrapper holds everything with flex column layout */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Main content grows to fill space above footer */
+.main-content {
+    flex: 1;
+    padding: 2rem; /* optional spacing for your content */
+}
+
+/* Footer Styles */
+.footer {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.footer-section {
+    flex: 1 1 250px;
+    margin-bottom: 30px;
+}
+
+.footer-section h2,
+.footer-section h3 {
+    margin-bottom: 15px;
+    color: white;
+}
+
+.footer-section p,
+.footer-section a {
+    color: #cccccc;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.footer-section a:hover {
+    color: #00e6e6;
+    text-decoration: underline;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    color: white;
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: scale(1.2);
+    color: #00e6e6;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 13px;
+    color: white;
+}
