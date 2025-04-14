@@ -8,7 +8,12 @@ body {
 
 /* Navbar container */
 .navbar {
-  position: sticky;
+  margin-bottom: 2rem;
+  width: 90vw;
+  height: 2rem;
+  background-color: #007bff !important;
+  color: white !important;
+  position: fixed;
   top: 0;
   z-index: 1000;
   background: rgba(255, 255, 255, 0.95);
@@ -27,10 +32,10 @@ body {
 .welcome-text {
   font-size: 28px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: white;
   letter-spacing: -0.5px;
   padding: 8px 16px;
-  border: 2px solid #3b82f6;
+  /* border: 2px solid white; */
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
 }
@@ -50,7 +55,7 @@ body {
   position: relative;
   font-size: 15px;
   font-weight: 500;
-  color: #4b5563;
+  color: white;
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 8px;
@@ -101,7 +106,7 @@ body {
 .username {
   font-weight: 500;
   font-size: 14px;
-  color: #1f2937;
+  color: white;
 }
 
 /* Logout button */

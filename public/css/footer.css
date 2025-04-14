@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Make body and html full height */
 html,
 body {
@@ -6,10 +7,21 @@ body {
 }
 
 /* Wrapper holds everything */
+=======
+/* Make html and body full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Wrapper holds everything with flex column layout */
+>>>>>>> cb0031757d5ab2506a91da6bc8068b163e663235
 .wrapper {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+<<<<<<< HEAD
     margin-bottom: 0px;
     /* ensures full height */
 }
@@ -43,6 +55,24 @@ body {
     background-color: #007bff;
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+=======
+}
+
+/* Main content grows to fill space above footer */
+.main-content {
+    flex: 1;
+    padding: 2rem; /* optional spacing for your content */
+}
+
+/* Footer Styles */
+.footer {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 40px;
+    padding-bottom: 20px;
+>>>>>>> cb0031757d5ab2506a91da6bc8068b163e663235
 }
 
 .footer-container {
@@ -52,17 +82,30 @@ body {
     margin: auto;
     padding: 0 20px;
     justify-content: space-between;
+<<<<<<< HEAD
+=======
+    gap: 20px;
+>>>>>>> cb0031757d5ab2506a91da6bc8068b163e663235
 }
 
 .footer-section {
     flex: 1 1 250px;
+<<<<<<< HEAD
     margin: 20px 0;
+=======
+    margin-bottom: 30px;
+>>>>>>> cb0031757d5ab2506a91da6bc8068b163e663235
 }
 
 .footer-section h2,
 .footer-section h3 {
+<<<<<<< HEAD
     color: white;
     margin-bottom: 15px;
+=======
+    margin-bottom: 15px;
+    color: white;
+>>>>>>> cb0031757d5ab2506a91da6bc8068b163e663235
 }
 
 .footer-section p,
@@ -70,16 +113,28 @@ body {
     color: #cccccc;
     text-decoration: none;
     font-size: 14px;
+<<<<<<< HEAD
 }
 
 .footer-section a:hover {
     color: #00bfa6;
+=======
+    line-height: 1.6;
+}
+
+.footer-section a:hover {
+    color: #00e6e6;
+>>>>>>> cb0031757d5ab2506a91da6bc8068b163e663235
     text-decoration: underline;
 }
 
 .footer-section ul {
     list-style: none;
     padding: 0;
+<<<<<<< HEAD
+=======
+    margin: 0;
+>>>>>>> cb0031757d5ab2506a91da6bc8068b163e663235
 }
 
 .footer-section ul li {
@@ -89,6 +144,7 @@ body {
 .social-icons a {
     display: inline-block;
     margin-right: 10px;
+<<<<<<< HEAD
     transition: transform 0.3s;
 }
 
@@ -96,17 +152,34 @@ body {
     width: 24px;
     height: 24px;
     filter: brightness(0) invert(1);
+=======
+    color: white;
+    font-size: 20px;
+    transition: transform 0.3s ease;
+>>>>>>> cb0031757d5ab2506a91da6bc8068b163e663235
 }
 
 .social-icons a:hover {
     transform: scale(1.2);
+<<<<<<< HEAD
+=======
+    color: #00e6e6;
+>>>>>>> cb0031757d5ab2506a91da6bc8068b163e663235
 }
 
 .footer-bottom {
     text-align: center;
+<<<<<<< HEAD
     margin-top: 30px;
     font-size: 13px;
     color: white;
     border-top: 1px solid #333;
     padding-top: 15px;
 }
+=======
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 13px;
+    color: white;
+}
+>>>>>>> cb0031757d5ab2506a91da6bc8068b163e663235

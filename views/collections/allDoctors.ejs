@@ -13,10 +13,24 @@
 <body>
 
     <% if (currentUser) { %>
-
-      <%- include("includes/navbarr.ejs") %>
+      <header class="navbar">
+        <div class="welcome-text">PulsePoint</div>
+        <nav class="nav-menu">
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Gallery</a></li>
+            <li><a href="#">Service</a></li>
+      
+            
+              <li class="user-info">
+                <span class="username">Hi, <%= currentUser.username %></span>
+                <a href="/logout" class="logout-link">Log Out</a>
+              </li>
+          </ul>
+        </nav>
+      </header>
     
-
         <% if (locals.messages) { %>
             <% if (messages.success && messages.success.length > 0) { %>
               <div class="flash-toast success">
@@ -85,7 +99,9 @@
             <script>window.location.href = '/loginsignup';</script>
             <% } %>
 
-            <%- include("../includes/footer.ejs") %>
+
+    <%- include("../includes/footer.ejs") %>
+>>>>>>> cb0031757d5ab2506a91da6bc8068b163e663235
 
              <!-- <script src="./js/flashing.js"></script> -->
       <script>
