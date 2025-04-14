@@ -5,36 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Doctors</title>
-    <link rel="stylesheet" href="/css/allDoctors.css">
-    <link rel="stylesheet" href="/css/flashing.css">
-    <!-- <link rel="stylesheet" href="/css/navbar.css"> -->
-    <link rel="stylesheet" href="/css/style.css">
-
+    <!-- <link rel="stylesheet" href="./css/allDoctors.css"> -->
+    <link rel="stylesheet" href="../css/allDoctors.css">
+    <link rel="stylesheet" href="../css/flashing.css">
 </head>
 
 <body>
 
     <% if (currentUser) { %>
 
-      <header class="navbar">
-        <div class="logo">PulsePoint</div>
-        <nav>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Gallery</a></li>
-            <li><a href="#">Service</a></li>
-      
-            
-              <li class="user-info">
-                <span class="username">Hi, <%= currentUser.username %></span>
-                <a href="/logout" class="logout-link">Log Out</a>
-              </li>
-          </ul>
-        </nav>
-      </header>
-      
-      
+      <%- include("includes/navbarr.ejs") %>
+    
+
         <% if (locals.messages) { %>
             <% if (messages.success && messages.success.length > 0) { %>
               <div class="flash-toast success">
@@ -62,7 +44,7 @@
           
         <div class="container">
             <!-- Search Form -->
-            <form class="search-form" action="/collections/doctor/search/" method="GET">
+            <form class="search-form" action="/doctors/search" method="GET">
                 <div class="search-wrapper">
                     <input type="search" class="search-input" placeholder="Search by name, specialty or hospital"
                         name="searchQuery" required>
@@ -102,6 +84,8 @@
         <% } else { %>
             <script>window.location.href = '/loginsignup';</script>
             <% } %>
+
+            <%- include("../includes/footer.ejs") %>
 
              <!-- <script src="./js/flashing.js"></script> -->
       <script>

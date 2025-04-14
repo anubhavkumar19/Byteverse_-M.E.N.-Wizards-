@@ -1,0 +1,112 @@
+/* Make body and html full height */
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Wrapper holds everything */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin-bottom: 0px;
+    /* ensures full height */
+}
+
+/* Main content takes up all remaining space */
+.main-content {
+    flex: 1;
+}
+
+/* Footer appears after all content */
+.footer {
+        /* display: block; */
+    position: absolute;
+    margin-top: 100px;
+    background-color: #007bff;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+
+
+
+
+/* Footer Styles */
+.footer {
+    /* display: block; */
+    position: absolute;
+    margin-top: 500px;
+    width: 100vw;
+    background-color: #007bff;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+    justify-content: space-between;
+}
+
+.footer-section {
+    flex: 1 1 250px;
+    margin: 20px 0;
+}
+
+.footer-section h2,
+.footer-section h3 {
+    color: white;
+    margin-bottom: 15px;
+}
+
+.footer-section p,
+.footer-section a {
+    color: #cccccc;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-section a:hover {
+    color: #00bfa6;
+    text-decoration: underline;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    transition: transform 0.3s;
+}
+
+.social-icons img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+}
+
+.social-icons a:hover {
+    transform: scale(1.2);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 13px;
+    color: white;
+    border-top: 1px solid #333;
+    padding-top: 15px;
+}
